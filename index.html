@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html ng-app lang="en">
+<html ng-app="MyMenu" lang="en">
   <head>
     <meta charset="utf-8">
     <title>Bootstrap, from Twitter</title>
@@ -77,19 +77,8 @@
     <div class="container">
 
       <ul>
-        <li ng-repeat="menu1 in menu">
-          <span ng-hide="menu1.link">{{menu1.title}}</span>
-          <span ng-show="menu1.link"><a href="{{menu1.link}}">{{menu1.title}}</a></span>
-          <ul ng-repeat="menu2 in menu1.menu">
-            <li>
-              <span ng-hide="menu2.link">{{menu2.title}}</span>
-              <span ng-show="menu2.link"><a href="{{menu2.link}}">{{menu2.title}}</a></span>
-              <ul ng-repeat="menu3 in menu2.menu">
-                <span ng-hide="menu3.link">{{menu3.title}}</span>
-                <span ng-show="menu3.link"><a href="{{menu3.link}}">{{menu3.title}}</a></span>
-              </ul>
-            </li>
-          </ul>
+        <li ng-repeat="menuT in menu">
+          <span ng-bind-html-unsafe="menuT | formatMenuElement"></span>
         </li>
       </ul>
 
@@ -99,8 +88,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="lib/jquery.min.js"></script>
-    <script src="menu.js"></script>
     <script src="lib/angular.min.js"></script>
+    <script src="menu.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
   </body>
