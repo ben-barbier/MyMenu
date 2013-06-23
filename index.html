@@ -76,7 +76,22 @@
 
     <div class="container">
 
-      <h1>Menu : {{menu}}</h1>
+      <ul>
+        <li ng-repeat="menu1 in menu">
+          <span ng-hide="menu1.link">{{menu1.title}}</span>
+          <span ng-show="menu1.link"><a href="{{menu1.link}}">{{menu1.title}}</a></span>
+          <ul ng-repeat="menu2 in menu1.menu">
+            <li>
+              <span ng-hide="menu2.link">{{menu2.title}}</span>
+              <span ng-show="menu2.link"><a href="{{menu2.link}}">{{menu2.title}}</a></span>
+              <ul ng-repeat="menu3 in menu2.menu">
+                <span ng-hide="menu3.link">{{menu3.title}}</span>
+                <span ng-show="menu3.link"><a href="{{menu3.link}}">{{menu3.title}}</a></span>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
 
     </div> <!-- /container -->
 
