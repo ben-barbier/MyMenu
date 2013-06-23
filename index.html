@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app lang="en">
   <head>
     <meta charset="utf-8">
     <title>Bootstrap, from Twitter</title>
@@ -24,7 +24,7 @@
 
   </head>
 
-  <body>
+  <body ng-controller="MainCtrl">
 
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
@@ -76,7 +76,7 @@
 
     <div class="container">
 
-      // no centent
+      <h1>Menu : {{menu}}</h1>
 
     </div> <!-- /container -->
 
@@ -84,6 +84,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="lib/jquery.min.js"></script>
+    <script src="menu.js"></script>
     <script src="lib/angular.min.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
