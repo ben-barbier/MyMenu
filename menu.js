@@ -1,7 +1,5 @@
 
-function MainCtrl($scope) {
-
-  $scope.flatMenu = [
+flatMenu = [
     "Applications",
     "- Integration",
     "-- Application 1 : #application1-int",
@@ -22,7 +20,7 @@ function MainCtrl($scope) {
     "- Folder 2 : #folder2"
   ];
 
-  $scope.formatMenu = function(flatMenu) {
+  var displayMenu = function(flatMenu) {
 
     var menu = flatMenu;
     var menuWithDeep = computeDeep(menu);
@@ -148,5 +146,3 @@ function MainCtrl($scope) {
 
     return menuWithDeep;
   }
-
-}

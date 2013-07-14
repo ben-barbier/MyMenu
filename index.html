@@ -38,7 +38,7 @@
           <!-- /3 strips on bottom right -->
 
           <a class="brand" href="#">MyMenu</a>
-          <div class="nav-collapse collapse" ng-bind-html-unsafe="formatMenu(flatMenu)"></div>
+          <div id="menu" class="nav-collapse collapse"></div>
 
         </div>
       </div>
@@ -50,9 +50,14 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="lib/jquery.min.js"></script>
-    <script src="lib/angular.min.js"></script>
     <script src="menu.js"></script>
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <script>
+        jQuery(document).ready(function($){
+            $('#menu').html(displayMenu(flatMenu));
+        });
+    </script>
 
   </body>
 </html>
