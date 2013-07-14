@@ -25,4 +25,4 @@ This application simply converts a short JS code like this :
 
 into a bootstrap menu like this :
 
-![menu screenshot](https://github.com/Agent-22/MyMenu/blob/master/readme/menu.png)
+![menu screenshot](https://raw.github.com/Agent-22/MyMenu/master/readme/menu.png)
