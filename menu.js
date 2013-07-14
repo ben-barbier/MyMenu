@@ -62,7 +62,7 @@ function MainCtrl($scope) {
       }
 
       if(elt.hasLink) {
-        htmlMenu += "<li><a href=\"" + elt.linkURL + "\">" + elt.text + "</a></li>";
+        htmlMenu += '<li><a href="' + elt.linkURL + '" target="_blank">' + elt.text + '</a></li>';
       }
     });
 
