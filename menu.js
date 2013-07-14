@@ -31,36 +31,12 @@ function MainCtrl($scope) {
     var menuWithFoldersInformations = findFoldersInformations(menuWithLinksInformations);
     var menuWithIsDeeperInformations = computeIfElementsAreDeeperThanPreviousElements(menuWithFoldersInformations);
     var menuWithShallowInformations = computeShallowInformations(menuWithIsDeeperInformations);
-   // var nestedMenu = computeNesting(menuWithShallowInformations);
 
     var htmlMenu = formatMenu(menuWithShallowInformations);
 
     return htmlMenu;
 
   };
-
-  var computeNesting = function(menu) {
-
-      var nestedMenu = new Array();
-      var rootDeep = 0;
-      var currentEltIdx = 0;
-
-      menu.forEach(function(elt) {
-        if(elt.isFolder && (elt.deep == rootDeep)) {
-          nestedMenu.push(computeNestedElements(elt));
-        }
-      });
-
-      return menu;
-  }
-
-  var computeNestedElements = function(elt, container) {
-    if(elt.isFolder) {
-      elt.nestedEnties = new Array();
-    }
-
-    //TODO: continue...
-  }
 
   var formatMenu = function(menu) {
     var htmlMenu = "";
@@ -93,10 +69,6 @@ function MainCtrl($scope) {
     htmlMenu += "</ul>";
 
     return htmlMenu;
-  }
-
-  var formatNestedMenu = function(nestedElt) {
-
   }
 
   var computeShallowInformations = function(menu) {
@@ -157,21 +129,21 @@ function MainCtrl($scope) {
 
   var computeDeep = function(menu) {
 
-      var menuWithDeep = new Array();
+    var menuWithDeep = new Array();
 
-      menu.forEach(function(elt) {
-        var entry = new Object();
-        var deep = 0;
-        for(var i=0;i<elt.length;i++) {
-            if (elt[i]=="-"){
-                deep++;
-            } else {
-                break;
-            }
+    menu.forEach(function(elt) {
+      var entry = new Object();
+      var deep = 0;
+      for(var i=0;i<elt.length;i++) {
+        if (elt[i]=="-"){
+          deep++;
+        } else {
+          break;
         }
-        entry.deep = deep;
-        entry.text = elt;
-        menuWithDeep.push(entry);
+      }
+      entry.deep = deep;
+      entry.text = elt;
+      menuWithDeep.push(entry);
     });
 
     return menuWithDeep;
