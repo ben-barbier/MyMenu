@@ -1,7 +1,7 @@
 
 function MainCtrl($scope) {
 
-  $scope.menu = [
+  $scope.flatMenu = [
     "Applications",
     "- Integration",
     "-- Application 1 : #application1-int",
@@ -22,63 +22,110 @@ function MainCtrl($scope) {
     "- Folder 2 : #folder2"
   ];
 
-  $scope.formatMenu = function(menu) {
+  $scope.formatMenu = function(flatMenu) {
 
-    var result = "";
-    var previousDeep = 0;
+    var menu = flatMenu;
+    var menuWithDeep = computeDeep(menu);
+    var menuWithoutDeepCharacters = removeDeepCharacters(menuWithDeep);
+    var menuWithLinksInformations = findLinksInformations(menuWithoutDeepCharacters);
+    var menuWithIsDeeperInformations = computeIfElementsAreDeeperThanPreviousElements(menuWithLinksInformations);
+    var menuWithShallowInformations = computeShallowInformations(menuWithIsDeeperInformations);
 
-    result += "<ul>";
-    for(var i=0;i<menu.length;i++) {
-      deep = computeDeep(menu[i]);
-      if (deep>previousDeep) {result += "<ul>";}
-      if (deep<previousDeep) {result += "</ul>";}
-      result += formatMenuElement(menu[i], deep);
-      previousDeep = deep;
-    }
-    result += "</ul>";
+    var htmlMenu = formatMenu(menuWithShallowInformations);
 
-    return result;
+    return htmlMenu;
+
   };
 
-  var computeDeep = function(elt) {
-  	var deep = 0;
-  	for(var i=0;i<elt.length;i++) {
-      if (elt[i]=="-"){
-      	deep++;
+  var formatMenu = function(menu) {
+    var htmlMenu = "";
+
+    htmlMenu += "<ul>";
+
+    menu.forEach(function(elt) {
+      if(elt.isDeeper) {
+        htmlMenu += "<ul>";
+      }
+      for(var i=0;i<elt.shallow;i++) {
+        htmlMenu += "</ul>";
+      }
+      if(elt.hasLink) {
+        htmlMenu += "<li><a href=\"" + elt.linkURL + "\">" + elt.text + "</a></li>";
       } else {
-      	break;
+        htmlMenu += "<li>" + elt.text + "</li>";
       }
-  	}
-  	return deep;
+    });
+
+    htmlMenu += "</ul>";
+
+    return htmlMenu;
   }
 
-  var formatMenuElement = function(menuElement, deep) {
-
-    var parts = menuElement.split(" : ");
-    var title = parts[0];
-    var elt = "";
-
-    title = formatTitle(title);
-
-    elt += "<li>";
-    if (parts.length == 1) {
-      elt += title;
-    }
-    if (parts.length == 2) {
-      var url = parts[1];
-      elt += "<a href=\"" + url + "\">" + title + "</a>";
-    }
-    elt += "</li>";
-    return elt;
+  var computeShallowInformations = function(menu) {
+    var previousDeep = 0;
+    menu.forEach(function(elt) {
+      if (elt.isDeeper) {
+        elt.shallow = 0;
+      } else {
+        elt.shallow = previousDeep - elt.deep;
+      }
+      previousDeep = elt.deep;
+    });
+    return menu;
   }
 
-  var formatTitle = function(title) {
-    for(var i=0;i<title.length;i++) {
-      if (title[i] == "-" || title[i] == " ") {
-      	title = title.slice(1);
-      }
-    }
-  	return title;
+  var computeIfElementsAreDeeperThanPreviousElements = function(menu) {
+    var previousDeep = 0;
+    menu.forEach(function(elt) {
+      elt.isDeeper = elt.deep > previousDeep;
+      previousDeep = elt.deep;
+    });
+    return menu;
+  }
+
+  var findLinksInformations = function(menu) {
+      menu.forEach(function(elt) {
+          var parts = elt.text.split(" : ");
+          if (parts.length == 2) {
+              elt.text = parts[0];
+              elt.linkURL = parts[1];
+              elt.hasLink = true;
+          } else {
+              elt.hasLink = false;
+          }
+      });
+      return menu;
+  }
+
+  var removeDeepCharacters = function(menuWithDeep) {
+      menuWithDeep.forEach(function(elt) {
+        if (elt.deep != 0) {
+            elt.text = elt.text.substring(elt.deep + 1);
+        }
+      });
+      return menuWithDeep;
+  }
+
+  var computeDeep = function(menu) {
+
+      var menuWithDeep = new Array();
+
+      menu.forEach(function(elt) {
+        var entry = new Object();
+        var deep = 0;
+        for(var i=0;i<elt.length;i++) {
+            if (elt[i]=="-"){
+                deep++;
+            } else {
+                break;
+            }
+        }
+        entry.deep = deep;
+        entry.text = elt;
+        menuWithDeep.push(entry);
+    });
+
+    return menuWithDeep;
   }
 
 }
