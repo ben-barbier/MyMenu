@@ -31,6 +31,7 @@ function MainCtrl($scope) {
     var menuWithFoldersInformations = findFoldersInformations(menuWithLinksInformations);
     var menuWithIsDeeperInformations = computeIfElementsAreDeeperThanPreviousElements(menuWithFoldersInformations);
     var menuWithShallowInformations = computeShallowInformations(menuWithIsDeeperInformations);
+   // var nestedMenu = computeNesting(menuWithShallowInformations);
 
     var htmlMenu = formatMenu(menuWithShallowInformations);
 
@@ -38,28 +39,64 @@ function MainCtrl($scope) {
 
   };
 
+  var computeNesting = function(menu) {
+
+      var nestedMenu = new Array();
+      var rootDeep = 0;
+      var currentEltIdx = 0;
+
+      menu.forEach(function(elt) {
+        if(elt.isFolder && (elt.deep == rootDeep)) {
+          nestedMenu.push(computeNestedElements(elt));
+        }
+      });
+
+      return menu;
+  }
+
+  var computeNestedElements = function(elt, container) {
+    if(elt.isFolder) {
+      elt.nestedEnties = new Array();
+    }
+
+    //TODO: continue...
+  }
+
   var formatMenu = function(menu) {
     var htmlMenu = "";
 
-    htmlMenu += "<ul>";
+    htmlMenu += '<ul class="nav">';
 
     menu.forEach(function(elt) {
-      if(elt.isDeeper) {
-        htmlMenu += "<ul>";
-      }
+
       for(var i=0;i<elt.shallow;i++) {
-        htmlMenu += "</ul>";
+        htmlMenu += "</ul></li>";
       }
+
+      if(elt.isFolder && elt.deep == 0) {
+        htmlMenu += '<li class="dropdown">';
+        htmlMenu +=   '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' + elt.text + ' <b class="caret"></b></a>';
+        htmlMenu +=   '<ul class="dropdown-menu">';
+      }
+
+      if(elt.isFolder && elt.deep > 0) {
+        htmlMenu += '<li class="dropdown-submenu">';
+        htmlMenu +=   '<a tabindex="-1" href="#">' + elt.text + '</a>';
+        htmlMenu +=   '<ul class="dropdown-menu">';
+      }
+
       if(elt.hasLink) {
         htmlMenu += "<li><a href=\"" + elt.linkURL + "\">" + elt.text + "</a></li>";
-      } else {
-        htmlMenu += "<li>" + elt.text + "</li>";
       }
     });
 
     htmlMenu += "</ul>";
 
     return htmlMenu;
+  }
+
+  var formatNestedMenu = function(nestedElt) {
+
   }
 
   var computeShallowInformations = function(menu) {
@@ -86,11 +123,10 @@ function MainCtrl($scope) {
 
   var findFoldersInformations = function(menu) {
     menu.forEach(function(elt) {
-      var parts = elt.text.split(" : ");
-        if (parts.length == 1) {
-          elt.isFolder = true;
-        } else {
+        if (elt.hasLink) {
           elt.isFolder = false;
+        } else {
+          elt.isFolder = true;
         }
     });
     return menu;

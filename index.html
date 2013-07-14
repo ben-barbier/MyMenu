@@ -37,6 +37,10 @@
           </button>
           <!-- /3 strips on bottom right -->
           <a class="brand" href="#">MyMenu</a>
+
+          <div class="nav-collapse collapse" ng-bind-html-unsafe="formatMenu(flatMenu)"></div>
+
+          <!--
           <div class="nav-collapse collapse">
             <ul class="nav">
               <li><a href="#1">Link1</a></li>
@@ -70,16 +74,13 @@
               </li>
             </ul>
           </div><!--/.nav-collapse -->
+
         </div>
       </div>
     </div>
 
     <div class="container">
-
-      <pre>
-        <div ng-bind-html-unsafe="formatMenu(flatMenu)"></div>
-      </pre>
-
+      // No content...
     </div> <!-- /container -->
 
     <!-- Le javascript
