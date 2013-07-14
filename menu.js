@@ -28,7 +28,8 @@ function MainCtrl($scope) {
     var menuWithDeep = computeDeep(menu);
     var menuWithoutDeepCharacters = removeDeepCharacters(menuWithDeep);
     var menuWithLinksInformations = findLinksInformations(menuWithoutDeepCharacters);
-    var menuWithIsDeeperInformations = computeIfElementsAreDeeperThanPreviousElements(menuWithLinksInformations);
+    var menuWithFoldersInformations = findFoldersInformations(menuWithLinksInformations);
+    var menuWithIsDeeperInformations = computeIfElementsAreDeeperThanPreviousElements(menuWithFoldersInformations);
     var menuWithShallowInformations = computeShallowInformations(menuWithIsDeeperInformations);
 
     var htmlMenu = formatMenu(menuWithShallowInformations);
@@ -79,6 +80,18 @@ function MainCtrl($scope) {
     menu.forEach(function(elt) {
       elt.isDeeper = elt.deep > previousDeep;
       previousDeep = elt.deep;
+    });
+    return menu;
+  }
+
+  var findFoldersInformations = function(menu) {
+    menu.forEach(function(elt) {
+      var parts = elt.text.split(" : ");
+        if (parts.length == 1) {
+          elt.isFolder = true;
+        } else {
+          elt.isFolder = false;
+        }
     });
     return menu;
   }
