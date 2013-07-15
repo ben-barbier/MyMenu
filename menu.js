@@ -1,3 +1,5 @@
+menuTitle = "MyMenu";
+
 flatMenu = [
     "Applications",
     "- Integration",

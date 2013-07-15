@@ -37,7 +37,7 @@
           </button>
           <!-- /3 strips on bottom right -->
 
-          <a class="brand" href="#">MyMenu</a>
+          <a id="menuTitle" class="brand" href="#"></a>
           <div id="menu" class="nav-collapse collapse"></div>
 
         </div>
@@ -56,6 +56,7 @@
 
     <script>
       jQuery(document).ready(function($){
+        $('#menuTitle').html(menuTitle);
         $('#menu').html(displayMenu(flatMenu));
       });
     </script>

@@ -3,6 +3,8 @@ MyMenu
 
 This application simply converts a short JS code like this :
 
+    menuTitle = "MyMenu";
+
     flatMenu = [
         "Applications",
         "- Integration",
