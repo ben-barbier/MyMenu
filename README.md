@@ -6,26 +6,22 @@ This application simply converts a short JS code like this :
     menuTitle = "MyMenu";
 
     flatMenu = [
-        "Applications",
-        "- Integration",
-        "-- Application 1 : http://integration.myApp1.com",
-        "-- Application 2 : http://integration.myApp2.com",
-        "- Pre-Production",
-        "-- Application 1 : http://preprod.myApp1.com",
-        "-- Application 2 : http://preprod.myApp2.com",
-        "- Production",
-        "-- Application 1 : http://prod.myApp1.com",
-        "-- Application 2 : http://prod.myApp2.com",
-        "-- DIVIDER",
-        "-- Application 3 : http://prod.myApp3.com",
-        "-- Application 4 : http://prod.myApp4.com",
+        "Google",
+        "- Gmail : https://mail.google.com",
+        "- Agenda : https://www.google.com/calendar",
+        "- Drive : https://drive.google.com",
         "Tools",
-        "- Tool 1 : https://www.google.com/",
-        "- Tool 2 : https://www.yahoo.com/",
-        "- Tool 3 : https://duckduckgo.com/",
-        "Folders",
-        "- Folder 1 : #folder1",
-        "- Folder 2 : #folder2"
+        "- TodoIst : https://todoist.com/app?lang=fr",
+        "- Trello : https://trello.com/",
+        "- Claroline : http://claroline.dark-sides.com",
+        "- GitHub : https://github.com/",
+        "- Cloud 9 : https://c9.io/",
+        "- OVH",
+        "-- Manager v3 : https://www.ovh.com/managerv3/",
+        "-- Manager Cloud : https://www.ovh.com/manager/web/login.html",
+        "Social",
+        "- Facebook : https://www.facebook.com/",
+        "- Google+ : https://plus.google.com/",
     ];
 
 into a bootstrap menu like this :
